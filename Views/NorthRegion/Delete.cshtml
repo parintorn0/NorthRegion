@@ -1,0 +1,29 @@
+@model NorthRegion.Models.NorthRegionViewModel
+@{
+    ViewData["Title"] = "Delete Friend";
+}
+<h1>Delete</h1>
+<h4>@ViewData["Title"]</h4>
+<form method="post" class="w-75 mx-auto">
+    <div class="mb-3">
+        <label for="Id" class="form-label">Please enter Id</label>
+        <input type="text" class="form-control" id="Id" asp-for="Id" readonly />
+    </div>
+    <div class="mb-3">
+        <label for="Firstname" class="form-label">Please enter Product's Name</label>
+        <input type="text" class="form-control" id="Firstname" asp-for="Name" readonly />
+    </div>
+    <div class="mb-3">
+        <label for="Lastname" class="form-label">Please enter Description</label>
+        <input type="text" class="form-control" id="Lastname" asp-for="Description" readonly />
+    </div>
+    <div class="mb-3">
+        <label for="Mobile" class="form-label">Please enter Price</label>
+        <input type="text" class="form-control" id="Mobile" asp-for="Price" readonly />
+    </div>
+    <div class="mb-3">
+        <input type="Submit" class="btn btn-danger mx-auto d-inline" value="Delete" />
+        <input type="button" class="btn btn-primary mx-auto d-inline" action="action"
+            onclick="window.location.href='/NorthRegion'" value="Cancel" />
+    </div>
+</form>
