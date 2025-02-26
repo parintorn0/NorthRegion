@@ -29,15 +29,21 @@
         <th>@Html.DisplayNameFor(model => model.Name)</th>
         <th>@Html.DisplayNameFor(model => model.Description)</th>
         <th>@Html.DisplayNameFor(model => model.Price)</th>
-        <th>Actions</th>
+        <th>@Html.DisplayNameFor(model => model.ExpiredDate)</th>
+        <th>@Html.DisplayNameFor(model => model.ImageFileName)</th>
+        <th>@Html.DisplayNameFor(model => model.Source)</th>
+        <th>Actions</th> 
     </tr>
     @foreach (var northRegion in Model)
     {
         <tr>
-            <th>@Html.DisplayFor(model => northRegion.Id)</th>
-            <th>@Html.DisplayFor(model => northRegion.Name)</th>
-            <th>@Html.DisplayFor(model => northRegion.Description)</th>
-            <th>@Html.DisplayFor(model => northRegion.Price)</th>
+            <td>@northRegion.Id</td>
+            <td>@northRegion.Name</td>
+            <td>@northRegion.Description</td>
+            <td>@northRegion.Price</td>
+            <td>@northRegion.ExpiredDate</td>
+            <td><img src="/images/@northRegion.ImageFileName" width="75"></td>
+            <td>@northRegion.Source</td>
             <td>
                 <a asp-controller="NorthRegion" asp-action="Edit" asp-route-id="@northRegion.Id"
                     class="btn btn-info text-white">Edit</a>

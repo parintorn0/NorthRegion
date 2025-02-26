@@ -1,10 +1,15 @@
 @model NorthRegion.Models.NorthRegionViewModel
 @{
     ViewData["Title"] = "Edit Friend";
+    var source= TempData["Source"]?.ToString();
+    var photoFilePath = TempData["PhotoFilePath"]?.ToString();
+    if(photoFilePath=="/images/"){
+        photoFilePath="/images/nodata.png";
+    }
 }
 <h1>Edit</h1>
 <h4>@ViewData["Title"]</h4>
-<form method="post" class="w-75 mx-auto">
+<form enctype="multipart/form-data" method="post" asp-controller="NorthRegion" asp-action="Edit" class="w-75 mx-auto">
     <div class="mb-3">
         <label for="Id" class="form-label">Please enter Id</label>
         <input type="text" class="form-control" id="Id" asp-for="Id" readonly />
@@ -20,6 +25,31 @@
     <div class="mb-3">
         <label for="Mobile" class="form-label">Please enter Price</label>
         <input type="text" class="form-control" id="Mobile" asp-for="Price" />
+    </div>
+    <div class="mb-3">
+        <label for="ExpiredDate" class="form-label">Expired Date: @Model.ExpiredDate</label>
+    </div>
+    <div class="mb-3">
+        <label for="ImageFileName" class="form-label">Current Image: @photoFilePath</label>
+        <input type="text" class="form-control" id="ImageFileName" asp-for="ImageFileName" readonly>
+        <img src="@photoFilePath" width="120"/>
+    </div>
+    <div class="mb-3">
+        <label for="Image" class="form-label">Please update Image:</label>
+        <input type="file" class="form-control" name="ImageFile" id="ImageFileName"/>
+    </div>
+    <div class="mb-3">
+        <label for="Source" class="form-label">Source: @source</label>
+        <div class="col-sm-9">
+            <label for="Source" class="form-label">Please choose Source of Image:</label>
+        <div class="col-sm-9">
+            <select class="form-select" asp-for="Source">
+                <option value="Unknown">Unknown</option>
+                <option value="Domestic">Dosmestic</option>
+                <option value="Oversea">Oversea</option>
+            </select>
+        </div> 
+        </div>   
     </div>
     <div class="mb-3">
         <input type="Submit" class="btn btn-info mx-auto d-inline" value="Save" />

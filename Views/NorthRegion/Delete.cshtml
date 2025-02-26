@@ -1,25 +1,41 @@
 @model NorthRegion.Models.NorthRegionViewModel
 @{
     ViewData["Title"] = "Delete Friend";
+    var source = TempData["Source"]?.ToString();
+    var photoFilePath = TempData["PhotoFilePath"]?.ToString();
+    if(photoFilePath=="/images/"){
+        photoFilePath="/images/nodata.png";
+    }
 }
 <h1>Delete</h1>
 <h4>@ViewData["Title"]</h4>
 <form method="post" class="w-75 mx-auto">
     <div class="mb-3">
-        <label for="Id" class="form-label">Please enter Id</label>
+        <label for="Id" class="form-label">Product Id</label>
         <input type="text" class="form-control" id="Id" asp-for="Id" readonly />
     </div>
     <div class="mb-3">
-        <label for="Firstname" class="form-label">Please enter Product's Name</label>
+        <label for="Firstname" class="form-label">Product's Name</label>
         <input type="text" class="form-control" id="Firstname" asp-for="Name" readonly />
     </div>
     <div class="mb-3">
-        <label for="Lastname" class="form-label">Please enter Description</label>
+        <label for="Lastname" class="form-label">Product Description</label>
         <input type="text" class="form-control" id="Lastname" asp-for="Description" readonly />
     </div>
     <div class="mb-3">
-        <label for="Mobile" class="form-label">Please enter Price</label>
+        <label for="Mobile" class="form-label">Product Price</label>
         <input type="text" class="form-control" id="Mobile" asp-for="Price" readonly />
+    </div>
+    <div class="mb-3">
+         <label for="ExpiredDate" class="form-label">Expired Date: @Model.ExpiredDate</label>
+    </div>
+    <div class="mb-3">
+        <label for="ImageFileName" class="form-label">Image File Name: </label>
+        <input type="text" class="form-control" id="ImageFileName" asp-for="ImageFileName" readonly>
+        <img src="@photoFilePath" width="120"/>
+    </div>
+    <div class="mb-3">
+         <label for="Source" class="form-label">Source of Image: @source</label>
     </div>
     <div class="mb-3">
         <input type="Submit" class="btn btn-danger mx-auto d-inline" value="Delete" />
