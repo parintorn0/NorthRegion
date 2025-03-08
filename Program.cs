@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using NorthRegion.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<NorthRegionDbContext>(
-    options => options.UseSqlite(builder.Configuration.GetConnectionString("MyDb"))
+    // options => options.UseSqlite(builder.Configuration.GetConnectionString("MyDbSQLite"))
+    options => options.UseMySQL(builder.Configuration.GetConnectionString("MyDbMySql"))
 );
 
 var app = builder.Build();
