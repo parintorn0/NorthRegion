@@ -35,6 +35,9 @@ namespace NorthRegion.Controllers
                 if(northRegion.ImageFileName == ""|northRegion.ImageFileName==null){
                     northRegion.ImageFileName = "nodata.png";
                 }
+                if(northRegion.Source==null){
+                    northRegion.Source = "Unknown";
+                }
             }
             return View(northRegionList);
         }
@@ -61,7 +64,7 @@ namespace NorthRegion.Controllers
                     Price = addNorthRegionViewModel.Price,
                     ExpiredDate = DateTime.Now.AddDays(7).ToString("dd-MM-yyyy"),
                     ImageFileName = strImageFile,
-                    Source = addNorthRegionViewModel.Source,   
+                    Source = addNorthRegionViewModel.Source != "Unknown" ? addNorthRegionViewModel.Source : null,   
                 };
                 await _context.AddAsync(northRegionViewModel);
                 await _context.SaveChangesAsync();
@@ -113,7 +116,7 @@ namespace NorthRegion.Controllers
                     }else{
                         northRegion.ImageFileName = northRegionViewModel.ImageFileName;//use existing img file data
                     }
-                    northRegion.Source = northRegionViewModel.Source; //Source here for order of column
+                    northRegion.Source = northRegionViewModel.Source != "Unknown" ? northRegionViewModel.Source : null; //Source here for order of column
                     await _context.SaveChangesAsync();
                     TempData["successMessage"] = $"{northRegionViewModel.Name} was Edited";
                     return RedirectToAction(nameof(Index));
