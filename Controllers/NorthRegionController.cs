@@ -49,8 +49,8 @@ namespace NorthRegion.Controllers
                 string? strImageFile = "nodata.png";
                 if(ImageFile!=null){
                     string strDateTime = DateTime.Now.ToString("yyyyMMddHHmmss", CultureInfo.InvariantCulture);
-                    strImageFile = strDateTime + "_" + ImageFile.FileName;
-                    string? PhotoFullPath = this.environment.WebRootPath + "/images/" + strImageFile;
+                    strImageFile = $"{strDateTime}_{ImageFile.FileName}";
+                    string? PhotoFullPath = $"{this.environment.WebRootPath}/images/{strImageFile}";
                     using(var fileStream = new FileStream(PhotoFullPath, FileMode.Create)){
                         await ImageFile.CopyToAsync(fileStream);
                     }
@@ -76,7 +76,7 @@ namespace NorthRegion.Controllers
         public async Task<IActionResult> Edit(int id){
             try{
                 var northRegion = await _context.NorthRegion.SingleOrDefaultAsync(n => n.Id == id);
-                TempData["PhotoFilePath"] = "/images/"+northRegion.ImageFileName;
+                TempData["PhotoFilePath"] = $"/images/{northRegion.ImageFileName}";
                 if(northRegion.Source != null){
                     TempData["Source"] = northRegion.Source?.ToString();
                 }else{
@@ -104,7 +104,7 @@ namespace NorthRegion.Controllers
                     if(ImageFile!=null){
                         string strDateTime = DateTime.Now.ToString("yyyyMMddHHmmss", CultureInfo.InvariantCulture);
                         string strImageFile = strDateTime + "_" + ImageFile.FileName;
-                        string? PhotoFullPath = this.environment.WebRootPath + "/images/" + strImageFile;
+                        string? PhotoFullPath = $"{this.environment.WebRootPath}/images/{strImageFile}";
                         using(var fileStream = new FileStream(PhotoFullPath, FileMode.Create))
                         {
                             await ImageFile.CopyToAsync(fileStream);
@@ -128,7 +128,7 @@ namespace NorthRegion.Controllers
         public async Task<IActionResult> Delete(int id) {
             try {
                 var northRegion = await _context.NorthRegion.SingleOrDefaultAsync(n => n.Id == id);
-                TempData["PhotoFilePath"] = "/images/"+northRegion.ImageFileName;
+                TempData["PhotoFilePath"] = $"/images/{northRegion.ImageFileName}";
                 TempData["Source"]=northRegion?.ToString();
                 if(northRegion.Source != null){
                     TempData["Source"] = northRegion.Source?.ToString();
