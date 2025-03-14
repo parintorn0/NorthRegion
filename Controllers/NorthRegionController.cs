@@ -27,10 +27,11 @@ namespace NorthRegion.Controllers
             this.environment = environment;
         }
         [HttpGet]
-        public async Task<IActionResult> Index()
-        {
-            var northRegionList = await _context.NorthRegion.ToListAsync();
-            northRegionList = northRegionList.OrderByDescending(x => x.Id).ToList();
+        public async Task<IActionResult> Index(int? page, int? pageSize) {
+            int pageNumber = page ?? 1;
+            int defaultPageSize = pageSize ?? 3;
+            int totalRecords = await _context.NorthRegion.CountAsync();
+            var northRegionList = await _context.NorthRegion.OrderByDescending(x => x.Id).Skip((pageNumber - 1) * defaultPageSize).Take(defaultPageSize).ToListAsync();
             foreach(var northRegion in northRegionList){
                 if(northRegion.ImageFileName == ""|northRegion.ImageFileName==null){
                     northRegion.ImageFileName = "nodata.png";
@@ -39,7 +40,8 @@ namespace NorthRegion.Controllers
                     northRegion.Source = "Unknown";
                 }
             }
-            return View(northRegionList);
+            var pagedNorthRegionList = new PagedList<NorthRegionViewModel>(northRegionList, pageNumber, defaultPageSize, totalRecords);
+            return View(pagedNorthRegionList);
         }
 
         [HttpGet] //show blank form
@@ -81,7 +83,7 @@ namespace NorthRegion.Controllers
                 var northRegion = await _context.NorthRegion.SingleOrDefaultAsync(n => n.Id == id);
                 TempData["PhotoFilePath"] = $"/images/{northRegion.ImageFileName}";
                 if(northRegion.Source != null){
-                    TempData["Source"] = northRegion.Source?.ToString();
+                    TempData["Source"] = northRegion.Source.ToString();
                 }else{
                     TempData["Source"] = "Unknown";
                 }

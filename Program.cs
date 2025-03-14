@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<NorthRegionDbContext>(
     // options => options.UseSqlite(builder.Configuration.GetConnectionString("MyDbSQLite"))
-    options => options.UseMySQL(builder.Configuration.GetConnectionString("MyDbMySql"))
+    options => options.UseMySQL("Server=localhost;Database=Product;Uid=root;Pwd=123;")
 );
 
 var app = builder.Build();
